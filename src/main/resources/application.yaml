@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/oshapp
+    username: oshapp
+    password: oshapp
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.format_sql: true
+    open-in-view: false
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/oshapp
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework.security: INFO
+jwt:
+  auth:
+    converter:
+      principle-attribute: preferred_username
+      resource-id: oshapp-backend
