@@ -15,7 +15,6 @@ It exposes secure endpoints for workforce medical files, risk assessments, sched
 | Database         | PostgreSQL 16 (Docker) :contentReference[oaicite:1]{index=1}|
 | AuthN/AuthZ      | Keycloak 25 (Docker) |
 | Dev helpers      | Lombok, Spring DevTools |
-| Quality          | JUnit 5, Spring-Security Test, JaCoCo �� |
 
 ---
 
