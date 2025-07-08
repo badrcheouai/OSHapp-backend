@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-
+  # -------------------- 1. Base de données Keycloak --------------------
   keycloak-db:
     image: postgres:16
     environment:
@@ -10,27 +10,11 @@ services:
       POSTGRES_PASSWORD: keycloak
     volumes:
       - keycloak-db-data:/var/lib/postgresql/data
-    networks: [ kc-net ]
+    ports:        # ← exposition facultative mais pratique pour debug
+      - "5432:5432"
+    networks: [kc-net]
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:25.0.1
-    command: start-dev --import-realm
-    environment:
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: keycloak
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: localhost
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./keycloak/realm-export:/opt/keycloak/data/import
-    depends_on: [ keycloak-db ]
-    networks: [ kc-net ]
-
-
+  # -------------------- 2. Base de données applicative -----------------
   app-db:
     image: postgres:16
     environment:
@@ -39,9 +23,27 @@ services:
       POSTGRES_PASSWORD: oshapp
     volumes:
       - oshapp-db-data:/var/lib/postgresql/data
+    ports:        # ← si tu veux y accéder depuis l’hôte
+      - "5433:5432"
+    networks: [kc-net]
+
+  # -------------------- 3. Keycloak ------------------------------------
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.1
+    command: ["start-dev"]                       # aucun import auto
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+      KC_HOSTNAME: localhost
     ports:
-      - "5432:5432"
-    networks: [ kc-net ]
+      - "8080:8080"
+    depends_on:
+      - keycloak-db
+    networks: [kc-net]
 
 networks:
   kc-net:

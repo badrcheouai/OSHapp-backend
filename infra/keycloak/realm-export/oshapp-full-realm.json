@@ -1,0 +1,82 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@example.com",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "admin", "temporary": false }
+      ],
+      "realmRoles": [ "ADMIN" ],
+      "clientRoles": { "oshapp-backend": [ "ADMIN" ] }
+    },
+    {
+      "username": "rh",
+      "enabled": true,
+      "firstName": "Responsable",
+      "lastName": "RH",
+      "email": "rh@example.com",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "rh123", "temporary": false }
+      ],
+      "realmRoles": [ "RESP_RH" ],
+      "clientRoles": { "oshapp-backend": [ "RESP_RH" ] }
+    },
+    {
+      "username": "infirmier",
+      "enabled": true,
+      "firstName": "Infirmier",
+      "lastName": "ST",
+      "email": "infirmier@example.com",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "inf123", "temporary": false }
+      ],
+      "realmRoles": [ "INFIRMIER_ST" ],
+      "clientRoles": { "oshapp-backend": [ "INFIRMIER_ST" ] }
+    },
+    {
+      "username": "medecin",
+      "enabled": true,
+      "firstName": "Medecin",
+      "lastName": "Travail",
+      "email": "medecin@example.com",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "med123", "temporary": false }
+      ],
+      "realmRoles": [ "MEDECIN_TRAVAIL" ],
+      "clientRoles": { "oshapp-backend": [ "MEDECIN_TRAVAIL" ] }
+    },
+    {
+      "username": "hse",
+      "enabled": true,
+      "firstName": "Responsable",
+      "lastName": "HSE",
+      "email": "hse@example.com",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "hse123", "temporary": false }
+      ],
+      "realmRoles": [ "RESP_HSE" ],
+      "clientRoles": { "oshapp-backend": [ "RESP_HSE" ] }
+    },
+    {
+      "username": "salarie",
+      "enabled": true,
+      "firstName": "Employe",
+      "lastName": "Demo",
+      "email": "salarie@example.com",
+      "emailVerified": true,
+      "credentials": [
+        { "type": "password", "value": "sal123", "temporary": false }
+      ],
+      "realmRoles": [ "SALARIE" ],
+      "clientRoles": { "oshapp-backend": [ "SALARIE" ] }
+    }
+  ]
+}
