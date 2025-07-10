@@ -14,19 +14,22 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain api(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/health").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/rh/**").hasRole("RESP_RH")
-                        .requestMatchers("/infirmier/**").hasRole("INFIRMIER_ST")
-                        .requestMatchers("/medecin/**").hasRole("MEDECIN_TRAVAIL")
-                        .requestMatchers("/hse/**").hasRole("RESP_HSE")
-                        .anyRequest().authenticated()
-                )
-                .oauth2ResourceServer(o2 -> o2
-                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter))
-                );
+        http
+            .cors() // <-- Enable CORS
+            .and()
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/health").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/rh/**").hasRole("RESP_RH")
+                .requestMatchers("/infirmier/**").hasRole("INFIRMIER_ST")
+                .requestMatchers("/medecin/**").hasRole("MEDECIN_TRAVAIL")
+                .requestMatchers("/hse/**").hasRole("RESP_HSE")
+                .anyRequest().authenticated()
+            )
+            .oauth2ResourceServer(o2 -> o2
+                .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter))
+            );
 
         return http.build();
     }

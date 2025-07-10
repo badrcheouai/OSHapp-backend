@@ -23,17 +23,257 @@
       "serviceAccountsEnabled": true,
       "standardFlowEnabled": false,
       "directAccessGrantsEnabled": true,
-      "fullScopeAllowed": false
+      "fullScopeAllowed": false,
+      "attributes": {
+        "saml.assertion.signature": "false",
+        "saml.force.post.binding": "false",
+        "saml.multivalued.roles": "false",
+        "saml.encrypt": "false",
+        "saml.server.signature": "false",
+        "saml.server.signature.keyinfo.ext": "false",
+        "exclude.session.state.from.auth.response": "false",
+        "saml_force_name_id_format": "false",
+        "saml.client.signature": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "false",
+        "display.on.consent.screen": "false",
+        "saml.onetimeuse.condition": "false"
+      }
     },
     {
       "clientId": "oshapp-frontend",
       "name": "SPA Front",
       "protocol": "openid-connect",
       "publicClient": true,
-      "redirectUris": [ "http://localhost:5173/*" ],
-      "webOrigins": [ "+" ],
+      "redirectUris": [ "http://localhost:3000/*" ],
+      "webOrigins": [ "http://localhost:3000" ],
       "standardFlowEnabled": true,
-      "fullScopeAllowed": false
+      "fullScopeAllowed": false,
+      "attributes": {
+        "saml.assertion.signature": "false",
+        "saml.force.post.binding": "false",
+        "saml.multivalued.roles": "false",
+        "saml.encrypt": "false",
+        "saml.server.signature": "false",
+        "saml.server.signature.keyinfo.ext": "false",
+        "exclude.session.state.from.auth.response": "false",
+        "saml_force_name_id_format": "false",
+        "saml.client.signature": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "false",
+        "display.on.consent.screen": "false",
+        "saml.onetimeuse.condition": "false"
+      },
+      "protocolMappers": [
+        {
+          "name": "realm roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "client roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-client-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "resource_access.${client_id}.roles",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "username",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "username",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "preferred_username",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "email",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "email",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "email",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "given name",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "firstName",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "given_name",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "family name",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "lastName",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "family_name",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    }
+  ],
+
+  "users": [
+    {
+      "username": "medecin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Medecin",
+      "lastName": "Travail",
+      "email": "medecin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["MEDECIN_TRAVAIL"]
+    },
+    {
+      "username": "hse",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Responsable",
+      "lastName": "HSE",
+      "email": "hse@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["RESP_HSE"]
+    },
+    {
+      "username": "rh",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Responsable",
+      "lastName": "RH",
+      "email": "rh@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["RESP_RH"]
+    },
+    {
+      "username": "infirmier",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Infirmier",
+      "lastName": "SST",
+      "email": "infirmier@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["INFIRMIER_ST"]
+    },
+    {
+      "username": "salarie",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Salarie",
+      "lastName": "Example",
+      "email": "salarie@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["SALARIE"]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "System",
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["ADMIN"]
+    }
+  ],
+  "identityProviders": [
+    {
+      "alias": "google",
+      "providerId": "google",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": true,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "clientId": "324727472971-dohog78j70n5boqa7m6b2l8smh7ugm3k.apps.googleusercontent.com",
+        "clientSecret": "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",
+        "defaultScope": "openid email profile",
+        "useJwksUrl": "true",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "tokenUrl": "https://oauth2.googleapis.com/token",
+        "userInfoUrl": "https://openidconnect.googleapis.com/v1/userinfo",
+        "logoutUrl": "https://accounts.google.com/logout",
+        "backchannelSupported": "true"
+      }
     }
   ]
 }

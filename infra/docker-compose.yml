@@ -23,7 +23,7 @@ services:
       POSTGRES_PASSWORD: oshapp
     volumes:
       - oshapp-db-data:/var/lib/postgresql/data
-    ports:        # ← si tu veux y accéder depuis l’hôte
+    ports:
       - "5433:5432"
     networks: [kc-net]
 
