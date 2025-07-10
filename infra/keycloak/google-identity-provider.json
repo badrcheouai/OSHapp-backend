@@ -1,0 +1,23 @@
+{
+  "alias": "google",
+  "providerId": "google",
+  "enabled": true,
+  "updateProfileFirstLoginMode": "on",
+  "trustEmail": true,
+  "storeToken": false,
+  "addReadTokenRoleOnCreate": false,
+  "authenticateByDefault": false,
+  "linkOnly": false,
+  "firstBrokerLoginFlowAlias": "first broker login",
+  "config": {
+    "clientId": "324727472971-dohog78j70n5boqa7m6b2l8smh7ugm3k.apps.googleusercontent.com",
+    "clientSecret": "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",
+    "defaultScope": "openid email profile",
+    "useJwksUrl": "true",
+    "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+    "tokenUrl": "https://oauth2.googleapis.com/token",
+    "userInfoUrl": "https://openidconnect.googleapis.com/v1/userinfo",
+    "logoutUrl": "https://accounts.google.com/logout",
+    "backchannelSupported": "true"
+  }
+} 
