@@ -17,12 +17,25 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/oshapp
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: badrcheouai48@gmail.com 
+    password: dxph mfrk jjsh zbms      
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp
+
 server:
   port: 8081
 
 logging:
   level:
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG
 jwt:
   auth:
     converter:
