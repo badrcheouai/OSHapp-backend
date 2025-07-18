@@ -1,0 +1,55 @@
+# Fichiers de développement
+.git
+.gitignore
+README.md
+*.md
+.env
+.env.*
+
+# Fichiers de build
+target/
+!target/*.jar
+build/
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+
+# Fichiers IDE
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+
+# Fichiers de test
+src/test/
+test/
+tests/
+
+# Fichiers de documentation
+docs/
+documentation/
+
+# Fichiers temporaires
+*.tmp
+*.temp
+*.log
+logs/
+
+# Fichiers de configuration locale
+application-local.properties
+application-local.yml
+application-dev.properties
+application-dev.yml
+
+# Fichiers Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Fichiers de déploiement
+deploy/
+infra/
+scripts/ 

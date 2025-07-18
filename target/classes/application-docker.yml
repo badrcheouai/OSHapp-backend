@@ -1,0 +1,56 @@
+# Configuration spécifique pour Docker
+spring:
+  # Configuration de la base de données
+  datasource:
+    url: jdbc:postgresql://postgres:5432/oshapp_db
+    username: oshapp_user
+    password: oshapp_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  # Configuration email (désactivé en Docker)
+  mail:
+    host: smtp.mock.local
+    port: 1025
+    username: dummy
+    password: dummy
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+# Configuration de l'application
+app:
+  notification:
+    email:
+      enabled: true  # les emails en Docker
+
+# Configuration Keycloak
+keycloak:
+  auth-server-url: http://keycloak:8080
+  realm: oshapp
+  client-id: oshapp-backend
+  client-secret: a8jP4kXYvjxzfZn9K9XB7CPQMVHsNwBZ
+
+# Configuration du serveur
+server:
+  port: 8081
+  ssl:
+    enabled: false
+
+# Configuration des logs
+logging:
+  level:
+    com.oshapp.backend: INFO
+    org.springframework.security: DEBUG
+    org.keycloak: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n" 

@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: oshapp
+      POSTGRES_USER: oshuser
+      POSTGRES_PASSWORD: oshpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo:6
+    environment:
+      MONGO_INITDB_DATABASE: oshapp
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+  minio:
+    image: minio/minio:latest
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.2
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/oshapp
+      KC_DB_USERNAME: oshuser
+      KC_DB_PASSWORD: oshpass
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev --import-realm
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    volumes:
+      - ./infra/keycloak/realms:/opt/keycloak/data/import
+
+  backend:
+    build: .
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/oshapp
+      SPRING_DATASOURCE_USERNAME: oshuser
+      SPRING_DATASOURCE_PASSWORD: oshpass
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/oshapp
+      MINIO_URL: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      KEYCLOAK_URL: http://keycloak:8080
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - mongodb
+      - minio
+      - keycloak
+    volumes:
+      - ./src/main/resources/backend-keystore.p12:/app/backend-keystore.p12
+
+volumes:
+  pgdata:
+  mongodata:
+  miniodata: 

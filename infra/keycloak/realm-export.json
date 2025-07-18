@@ -1,0 +1,104 @@
+{"realm": "oshapp",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "oshapp-backend",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "a8jP4kXYvjxzfZn9K9XB7CPQMVHsNwBZ",
+      "redirectUris": [
+        "https://localhost:8443/*",
+        "http://localhost:8081/*"
+      ],
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true
+    }
+  ],
+  "roles": {
+    "realm": [
+      {"name": "ADMIN"},
+      {"name": "HR"},
+      {"name": "EMPLOYEE"},
+      {"name": "NURSE"},
+      {"name": "DOCTOR"},
+      {"name": "HSE"}
+    ]
+  },
+  "identityProviders": [
+    {
+      "alias": "google",
+      "providerId": "google",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": true,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "config": {
+        "clientId": "312842822212-pm0pl8aki74ftcouotj1l09ln20mfkv5.apps.googleusercontent.com",
+        "clientSecret": "",
+        "useJwksUrl": "true"
+      }
+    }
+  ],
+    "users": [
+      {
+        "username": "admin",
+        "enabled": true,
+        "email": "admin@oshapp.com",
+        "firstName": "Admin",
+        "lastName": "User",
+        "credentials": [{ "type": "password", "value": "admin123", "temporary": false }],
+        "realmRoles": ["admin"]
+      },
+      {
+        "username": "employee1",
+        "enabled": true,
+        "email": "employee1@oshapp.com",
+        "firstName": "Employee",
+        "lastName": "One",
+        "credentials": [{ "type": "password", "value": "employee123", "temporary": false }],
+        "realmRoles": ["employee"]
+      },
+      {
+        "username": "hr1",
+        "enabled": true,
+        "email": "hr1@oshapp.com",
+        "firstName": "HR",
+        "lastName": "One",
+        "credentials": [{ "type": "password", "value": "hr123", "temporary": false }],
+        "realmRoles": ["hr"]
+      },
+      {
+        "username": "nurse1",
+        "enabled": true,
+        "email": "nurse1@oshapp.com",
+        "firstName": "Nurse",
+        "lastName": "One",
+        "credentials": [{ "type": "password", "value": "nurse123", "temporary": false }],
+        "realmRoles": ["nurse"]
+      },
+      {
+        "username": "doctor1",
+        "enabled": true,
+        "email": "doctor1@oshapp.com",
+        "firstName": "Doctor",
+        "lastName": "One",
+        "credentials": [{ "type": "password", "value": "doctor123", "temporary": false }],
+        "realmRoles": ["doctor"]
+      },
+      {
+        "username": "hse1",
+        "enabled": true,
+        "email": "hse1@oshapp.com",
+        "firstName": "HSE",
+        "lastName": "One",
+        "credentials": [{ "type": "password", "value": "hse123", "temporary": false }],
+        "realmRoles": ["hse"]
+      }
+    ]
+    
+  }
